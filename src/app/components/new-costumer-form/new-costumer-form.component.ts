@@ -72,7 +72,6 @@ export class NewCostumerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountriesData();
-    console.log(this.newCostumerForm)
   }
 
   getCountriesData() {
@@ -93,23 +92,6 @@ export class NewCostumerFormComponent implements OnInit {
     this.registeredUsers.push(this.newCostumerForm.value)
     console.log(this.registeredUsers)
     this.newCostumerForm.reset();
-    this.newCostumerForm.setValue({
-      firstName: '',
-      lastName: '',
-      birthday: '',
-      gender: '',
-      country: '',
-      cellphone: '',
-      telephone: '',
-      city: '',
-      address: '',
-      address2: '',
-      profession: '',
-      income: '',
-    })
-    this.newCostumerForm.controls.markAsUntouched;
-
-    console.log(this.newCostumerForm.value)
   }
 
 }
