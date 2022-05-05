@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { countriesData, countriesCities } from './country-data';
@@ -12,24 +12,25 @@ import { professions } from './professions';
 export class NewCostumerFormComponent implements OnInit {
 
   registeredUsers: any = [];
+  @ViewChild('f') myNgForm: any;
 
   phoneValidations: Validators = [
     Validators.required,
     Validators.pattern(/^-?(0|[1-9]\d*)?$/),
     Validators.min(10000),
-    Validators.maxLength(999999999),
+    Validators.max(999999999),
   ]
 
-  newCostumerForm = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+  newCostumerForm: FormGroup = this.fb.group({
+    firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+    lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
     birthday: ['', Validators.required],
     gender: ['', Validators.required],
     country: ['', Validators.required],
     cellphone: ['', this.phoneValidations],
     telephone: ['', this.phoneValidations],
     city: [''],
-    address: ['', Validators.required],
+    address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
     address2: [''],
     profession: ['', Validators.required],
     income: ['', Validators.required],
@@ -90,8 +91,14 @@ export class NewCostumerFormComponent implements OnInit {
 
   onSubmit() {
     this.registeredUsers.push(this.newCostumerForm.value)
-    console.log(this.registeredUsers)
-    this.newCostumerForm.reset();
+    console.log(this.registeredUsers);
+    this.resetForm();
+  }
+  
+  resetForm() {
+    this.selectedCountry = null;
+    this.newCostumerForm.reset('')
+    this.myNgForm.resetForm();
   }
 
 }

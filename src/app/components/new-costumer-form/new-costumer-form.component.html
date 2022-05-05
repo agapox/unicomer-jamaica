@@ -1,6 +1,7 @@
 <h2>Want to Join Unicomer Jamaica?</h2>
 <p>Fill in your information and we will contact you for more details.</p>
 <form
+    #f="ngForm"
     class="form__group"
     [formGroup]="newCostumerForm" (ngSubmit)="onSubmit()">
   
@@ -213,7 +214,7 @@
     </ng-container>
 
     <div class="form__actions">
-        <button mat-raised-button color="primary" [disabled]="!newCostumerForm.valid" submit>Submit form</button>
+        <button mat-raised-button color="primary" [disabled]="!newCostumerForm?.valid" submit>Submit form</button>
     </div>
 
 </form>
