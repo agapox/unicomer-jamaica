@@ -1,0 +1,124 @@
+<h2>Want to Join Unicomer Jamaica?</h2>
+<p>Fill in your information and we will contact you for more details.</p>
+<form action="">
+  
+    <div>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput placeholder="John">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput placeholder="Doe">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="outline" class="input-min-width">
+            <mat-label>Choose your birthday</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>          
+    </div>
+
+    <div>
+        <mat-form-field class="input-min-width" appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let gender of genders" [value]="gender">
+                {{ gender }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <ng-container *ngIf="countries.length > 0">
+            <mat-form-field class="input-min-width" appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select (selectionChange)="onSelectChange($event)">
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      {{ country.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+    </div>
+
+    <ng-container *ngIf="selectedCountry">
+        <div>
+            <mat-form-field class="input-min-width" appearance="outline">
+                <mat-label>Cellphone</mat-label>
+                <span matPrefix>{{ selectedCountry.code }} &nbsp;</span>
+                <input type="tel" matInput placeholder="555-555-1234">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+                <mat-hint>Include only numbers</mat-hint>
+            </mat-form-field>
+        </div>
+    
+        <div>
+            <mat-form-field class="input-min-width" appearance="outline">
+                <mat-label>Telephone</mat-label>
+                <span matPrefix>{{ selectedCountry.code }} &nbsp;</span>
+                <input type="tel" matInput placeholder="555-555-1234">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+                <mat-hint>Include only numbers</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="outline" class="input-min-width" *ngIf="selectedCountry?.cities">
+                <mat-label>City</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let city of selectedCountry?.cities" [value]="city">
+                        {{ city }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput placeholder="100 Main St"></textarea>
+          </mat-form-field>
+        </div>
+    
+        <div>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Address 2</mat-label>
+              <textarea matInput placeholder="Apartment 51"></textarea>
+            </mat-form-field>
+        </div>
+    </ng-container>
+
+    <div>
+        <mat-form-field appearance="outline" class="input-min-width">
+            <mat-label>Profession</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let profession of professions" [value]="profession">
+                    {{ profession }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="input-min-width" appearance="outline">
+            <mat-label>Monthly income ($USD)</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let income of incomeRange" [value]="income.value">
+                    {{ income.text }}
+                </mat-option>
+            </mat-select>
+            <mat-hint>Approximate monthly income range in US dollars.</mat-hint>
+        </mat-form-field>
+    </div>
+  
+
+</form>
