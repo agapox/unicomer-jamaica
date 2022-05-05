@@ -1,3 +1,16 @@
 :host {
     max-width: 100%;
+
+
+    .form {
+        &__group {
+            padding-bottom: 32px;
+        }
+        &__control {
+            margin-bottom: 16px;
+        }
+        &__actions {
+            margin: 32px 0;
+        }
+    }
 }

@@ -11,7 +11,7 @@ import { NewCostumerFormModule } from './components/new-costumer-form/new-costum
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

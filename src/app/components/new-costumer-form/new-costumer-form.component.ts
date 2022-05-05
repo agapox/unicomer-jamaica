@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { countriesData, countriesCities } from './country-data';
 import { professions } from './professions';
 
@@ -8,6 +10,30 @@ import { professions } from './professions';
   styleUrls: ['./new-costumer-form.component.scss']
 })
 export class NewCostumerFormComponent implements OnInit {
+
+  registeredUsers: any = [];
+
+  phoneValidations: Validators = [
+    Validators.required,
+    Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+    Validators.min(10000),
+    Validators.maxLength(999999999),
+  ]
+
+  newCostumerForm = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    birthday: ['', Validators.required],
+    gender: ['', Validators.required],
+    country: ['', Validators.required],
+    cellphone: ['', this.phoneValidations],
+    telephone: ['', this.phoneValidations],
+    city: [''],
+    address: ['', Validators.required],
+    address2: [''],
+    profession: ['', Validators.required],
+    income: ['', Validators.required],
+  })
 
   incomeRange: {
     value: number,
@@ -40,7 +66,14 @@ export class NewCostumerFormComponent implements OnInit {
     cities: string[] | null
   } | null = null
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
+    this.getCountriesData();
+    console.log(this.newCostumerForm)
+  }
 
   getCountriesData() {
     for (let country of countriesData) {
@@ -52,13 +85,31 @@ export class NewCostumerFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getCountriesData();
-    console.log(this.countries[1])
-  }
-
   onSelectChange(event: any) {
     this.selectedCountry = event.value
+  }
+
+  onSubmit() {
+    this.registeredUsers.push(this.newCostumerForm.value)
+    console.log(this.registeredUsers)
+    this.newCostumerForm.reset();
+    this.newCostumerForm.setValue({
+      firstName: '',
+      lastName: '',
+      birthday: '',
+      gender: '',
+      country: '',
+      cellphone: '',
+      telephone: '',
+      city: '',
+      address: '',
+      address2: '',
+      profession: '',
+      income: '',
+    })
+    this.newCostumerForm.controls.markAsUntouched;
+
+    console.log(this.newCostumerForm.value)
   }
 
 }

@@ -618,6 +618,7 @@ export const professions: string[] = [
     "ordnance handling expert",
     "orthodontist",
     "orthotist",
+    "other",
     "outdoor power equipment mechanic",
     "oven operator",
     "packaging machine operator",

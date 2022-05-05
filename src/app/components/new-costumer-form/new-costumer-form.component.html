@@ -1,80 +1,184 @@
 <h2>Want to Join Unicomer Jamaica?</h2>
 <p>Fill in your information and we will contact you for more details.</p>
-<form action="">
+<form
+    class="form__group"
+    [formGroup]="newCostumerForm" (ngSubmit)="onSubmit()">
   
-    <div>
+    <div class="form__control">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Firstname</mat-label>
-            <input matInput placeholder="John">
+            <input
+                formControlName="firstName"
+                matInput
+                placeholder="John">
+                <mat-hint
+                    *ngIf="!newCostumerForm?.get('firstName')?.valid && newCostumerForm?.get('firstName')?.touched"
+                    style="color: red;">
+                    The firstname is required
+                </mat-hint>
         </mat-form-field>
     </div>
 
-    <div>
+    <div class="form__control">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Lastname</mat-label>
-            <input matInput placeholder="Doe">
+            <input
+                formControlName="lastName"
+                matInput
+                placeholder="Doe">
+            <mat-hint
+                *ngIf="!newCostumerForm?.get('lastName')?.valid && newCostumerForm?.get('lastName')?.touched"
+                style="color: red;">
+                The lastname is required
+            </mat-hint>
         </mat-form-field>
     </div>
 
-    <div>
+    <div class="form__control">
         <mat-form-field appearance="outline" class="input-min-width">
             <mat-label>Choose your birthday</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <input
+                formControlName="birthday"
+                matInput
+                [matDatepicker]="picker">
+            
+            <mat-hint>
+                <span
+                    *ngIf="!newCostumerForm?.get('birthday')?.valid && newCostumerForm?.get('birthday')?.touched"
+                    style="color: red;">
+                    The birthday is required&nbsp;-&nbsp;
+                </span>
+                MM/DD/YYYY
+            </mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>          
     </div>
 
-    <div>
+    <div class="form__control">
         <mat-form-field class="input-min-width" appearance="outline">
             <mat-label>Gender</mat-label>
-            <mat-select>
+            <mat-select
+                formControlName="gender">
               <mat-option *ngFor="let gender of genders" [value]="gender">
                 {{ gender }}
               </mat-option>
             </mat-select>
+            <mat-hint
+                *ngIf="!newCostumerForm?.get('gender')?.valid && newCostumerForm?.get('gender')?.touched"
+                style="color: red;">
+                The gender is required
+            </mat-hint>
         </mat-form-field>
     </div>
 
-    <div>
+    <div class="form__control">
+        <mat-form-field appearance="outline" class="input-min-width">
+            <mat-label>Profession</mat-label>
+            <mat-select
+                formControlName="profession">
+                <mat-option *ngFor="let profession of professions" [value]="profession">
+                    {{ profession }}
+                </mat-option>
+            </mat-select>
+            <mat-hint
+                *ngIf="!newCostumerForm?.get('profession')?.valid && newCostumerForm?.get('profession')?.touched"
+                style="color: red;">
+                The profession is required
+            </mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="form__control">
+        <mat-form-field class="input-min-width" appearance="outline">
+            <mat-label>Monthly income ($USD)</mat-label>
+            <mat-select
+                formControlName="income">
+                <mat-option *ngFor="let income of incomeRange" [value]="income.value">
+                    {{ income.text }}
+                </mat-option>
+            </mat-select>
+            <mat-hint>
+                <span
+                    *ngIf="!newCostumerForm?.get('income')?.valid && newCostumerForm?.get('income')?.touched"
+                    style="color: red;">
+                    The monthly income is required&nbsp;-&nbsp;
+                </span>
+                Approximate monthly income range in US dollars.
+            </mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="form__control">
         <ng-container *ngIf="countries.length > 0">
             <mat-form-field class="input-min-width" appearance="outline">
                 <mat-label>Country</mat-label>
-                <mat-select (selectionChange)="onSelectChange($event)">
+                <mat-select
+                    formControlName="country"
+                    (selectionChange)="onSelectChange($event)">
                     <mat-option *ngFor="let country of countries" [value]="country">
                       {{ country.name }}
                     </mat-option>
                 </mat-select>
+                <mat-hint
+                    *ngIf="!newCostumerForm?.get('country')?.valid && newCostumerForm?.get('country')?.touched"
+                    style="color: red;">
+                    The country is required
+                </mat-hint>
             </mat-form-field>
         </ng-container>
     </div>
 
     <ng-container *ngIf="selectedCountry">
-        <div>
+        <div class="form__control">
             <mat-form-field class="input-min-width" appearance="outline">
                 <mat-label>Cellphone</mat-label>
                 <span matPrefix>{{ selectedCountry.code }} &nbsp;</span>
-                <input type="tel" matInput placeholder="555-555-1234">
+                <input
+                    formControlName="cellphone"
+                    type="number"
+                    matInput placeholder="5556661234">
                 <mat-icon matSuffix>mode_edit</mat-icon>
-                <mat-hint>Include only numbers</mat-hint>
+                <mat-hint>
+                    <span
+                        *ngIf="!newCostumerForm?.get('cellphone')?.valid && newCostumerForm?.get('cellphone')?.touched"
+                        style="color: red;">
+                        {{
+                            newCostumerForm?.get('cellphone')?.value === "" ? "The cellphone is required&nbsp;-&nbsp;" : "The cellphone is invalid&nbsp;-&nbsp;"
+                        }}
+                    </span>
+                    Include only numbers
+                </mat-hint>
             </mat-form-field>
         </div>
     
-        <div>
+        <div class="form__control">
             <mat-form-field class="input-min-width" appearance="outline">
                 <mat-label>Telephone</mat-label>
                 <span matPrefix>{{ selectedCountry.code }} &nbsp;</span>
-                <input type="tel" matInput placeholder="555-555-1234">
+                <input
+                    formControlName="telephone"
+                    type="number"
+                    matInput placeholder="5556661234">
                 <mat-icon matSuffix>mode_edit</mat-icon>
-                <mat-hint>Include only numbers</mat-hint>
+                <mat-hint>
+                    <span
+                        *ngIf="!newCostumerForm?.get('telephone')?.valid && newCostumerForm?.get('telephone')?.touched"
+                        style="color: red;">
+                        {{
+                            newCostumerForm?.get('telephone')?.value === "" ? "The telephone is required&nbsp;-&nbsp;" : "The telephone is invalid&nbsp;-&nbsp;"
+                        }}
+                    </span>
+                    Include only numbers
+                </mat-hint>
             </mat-form-field>
         </div>
 
-        <div>
+        <div class="form__control">
             <mat-form-field appearance="outline" class="input-min-width" *ngIf="selectedCountry?.cities">
                 <mat-label>City</mat-label>
-                <mat-select>
+                <mat-select
+                    formControlName="city">
                     <mat-option *ngFor="let city of selectedCountry?.cities" [value]="city">
                         {{ city }}
                     </mat-option>
@@ -82,43 +186,34 @@
             </mat-form-field>
         </div>
 
-        <div>
+        <div class="form__control">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Address</mat-label>
-            <textarea matInput placeholder="100 Main St"></textarea>
+            <textarea
+                formControlName="address"
+                matInput
+                placeholder="100 Main St"></textarea>
+            <mat-hint
+                *ngIf="!newCostumerForm?.get('address')?.valid && newCostumerForm?.get('address')?.touched"
+                style="color: red;">
+                The address is required
+            </mat-hint>
           </mat-form-field>
         </div>
     
-        <div>
+        <div class="form__control">
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>Address 2</mat-label>
-              <textarea matInput placeholder="Apartment 51"></textarea>
+              <textarea
+                formControlName="address2"
+                matInput
+                placeholder="Apartment 51"></textarea>
             </mat-form-field>
         </div>
     </ng-container>
 
-    <div>
-        <mat-form-field appearance="outline" class="input-min-width">
-            <mat-label>Profession</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let profession of professions" [value]="profession">
-                    {{ profession }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <div class="form__actions">
+        <button mat-raised-button color="primary" [disabled]="!newCostumerForm.valid" submit>Submit form</button>
     </div>
-
-    <div>
-        <mat-form-field class="input-min-width" appearance="outline">
-            <mat-label>Monthly income ($USD)</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let income of incomeRange" [value]="income.value">
-                    {{ income.text }}
-                </mat-option>
-            </mat-select>
-            <mat-hint>Approximate monthly income range in US dollars.</mat-hint>
-        </mat-form-field>
-    </div>
-  
 
 </form>

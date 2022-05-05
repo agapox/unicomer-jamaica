@@ -11,6 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 
 
 import { NewCostumerFormComponent } from './new-costumer-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -20,12 +22,14 @@ import { NewCostumerFormComponent } from './new-costumer-form.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatButtonModule
   ],
   exports: [
     NewCostumerFormComponent,
