@@ -30,8 +30,8 @@ export class NewCostumerFormComponent implements OnInit {
     cellphone: ['', this.phoneValidations],
     telephone: ['', this.phoneValidations],
     city: [''],
-    address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
-    address2: [''],
+    address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+    address2: ['', [Validators.minLength(5), Validators.maxLength(50)]],
     profession: ['', Validators.required],
     income: ['', Validators.required],
   })
